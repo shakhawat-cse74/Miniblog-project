@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-sm-10">
+    <h3 class="text-white my-5">Dashboard / Update Post</h3>
+
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {% for fm in form %}
+        <div class="form-group">
+        {{fm.label_tag}} {{fm}}  <p class="text-warning">{{fm.errors|striptags}}</p> 
+        </div>
+        {% endfor %}
+        <input type="submit" value="Update" class="btn btn-success">
+        <a href="{% url 'dashboard' %}" class="btn btn-danger">Cancel</a>
+
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p class="alert alert-warning">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+
+    </form>
+</div>
+{% endblock content %}

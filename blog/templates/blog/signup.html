@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-sm-10">
+    <h2 class="text-white my-5">Signup Page</h2>
+    
+    {% if messages %}
+    {% for message in messages %}
+
+    <p {% if message.tags %} class="alert alert-{{message.tags}}" {% endif %}>{{message}}</p>
+    
+    {% endfor %}
+    {% endif %}
+
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+
+
+        {% for fm in form %}
+        <div class="form-group">
+        {{fm.label_tag}} {{fm}} <p class="text-warning">{{fm.errors|striptags}}</p> 
+        </div>
+        {% endfor %} 
+        <a href="{% url 'login' %}" class="btn btn-success mt-3">Signin</a>
+        <input type="submit" value="Signup" class="btn btn-primary mt-3">
+        
+
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p class="alert alert-warning">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+
+    </form>
+   
+</div>
+
+{% endblock content %}
